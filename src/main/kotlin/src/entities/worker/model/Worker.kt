@@ -13,6 +13,7 @@ import javax.validation.constraints.Size
 class Worker(
 
     @Id
+    @Column(nullable = false, unique = true)
     val id: Long?,
 
     @field:NotBlank
@@ -23,14 +24,12 @@ class Worker(
     @field:NotNull
     @field:Min(0)
     @Column(name = "daily_income", nullable = false)
-    val dailyIncome: BigDecimal
-
-) {
+    val dailyIncome: BigDecimal,
 
     @field:NotNull
     @Column(nullable = false)
-    var active: Boolean = true
-        private set
+    var active: Boolean
+) {
 
     fun enableUser(): Boolean {
         this.active = true
