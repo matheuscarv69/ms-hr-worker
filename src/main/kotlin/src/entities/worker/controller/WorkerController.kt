@@ -6,6 +6,11 @@ import io.swagger.annotations.ApiResponse
 import io.swagger.annotations.ApiResponses
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.domain.Sort.Direction.ASC
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -90,7 +95,7 @@ class WorkerController(
     )
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{workerId}")
-    fun getUserById(
+    fun getWorkerById(
         @PathVariable workerId: Long,
     ): ResponseEntity<DetailWorkerResponse> {
         log.info("Receiving request for found worker, id: $workerId")
@@ -98,6 +103,35 @@ class WorkerController(
         val workerResponse = DetailWorkerResponse(getWorkerService.getWorkerById(workerId))
 
         return ResponseEntity.ok(workerResponse)
+    }
+
+    @ApiOperation("Get All Workers by Department")
+    @ApiResponses(
+        value = [
+            ApiResponse(code = 200, message = "Workers found successfully"),
+            ApiResponse(code = 500, message = "Internal Server Error")
+        ]
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping()
+    fun getAllWorkersByDepartment(
+        @RequestParam(required = false, defaultValue = true.toString()) active: Boolean,
+        @RequestParam department: String,
+        @PageableDefault(
+            page = 0,
+            size = 10,
+            sort = ["id"],
+            direction = ASC
+        ) pageable: Pageable
+    ): ResponseEntity<Page<DetailWorkerResponse>> {
+        log.info("Receiving request for get all workers by department $department")
+
+        val workersPage = getWorkerService.getAllWorkersByDepartment(active, department, pageable)
+            .map { worker ->
+                DetailWorkerResponse(worker)
+            }
+
+        return ResponseEntity.ok(workersPage)
     }
 
 }
