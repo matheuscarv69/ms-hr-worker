@@ -30,5 +30,28 @@ class UpdateWorkerService(
 
     }
 
+    @Transactional
+    override fun enableWorker(workerId: Long) {
+        log.info("Activating Worker: $workerId")
+
+        repository.findById(workerId).orElseThrow {
+            WorkerNotFoundException("This Worker ID: $workerId not found.")
+        }.let { worker ->
+            worker.enableWorker()
+            repository.save(worker)
+        }
+    }
+
+    @Transactional
+    override fun disableWorker(workerId: Long) {
+        log.info("Deactivating Worker: $workerId")
+
+        repository.findById(workerId).orElseThrow {
+            WorkerNotFoundException("This Worker ID: $workerId not found.")
+        }.let { worker ->
+            worker.disableWorker()
+            repository.save(worker)
+        }
+    }
 
 }

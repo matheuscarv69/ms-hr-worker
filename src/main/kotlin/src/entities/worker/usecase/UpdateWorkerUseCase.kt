@@ -6,4 +6,8 @@ interface UpdateWorkerUseCase {
 
     fun updateWorker(workerDomain: Worker)
 
+    fun enableWorker(workerId: Long)
+
+    fun disableWorker(workerId: Long)
+
 }
