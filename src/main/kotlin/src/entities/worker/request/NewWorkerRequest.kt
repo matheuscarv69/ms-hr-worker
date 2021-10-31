@@ -21,7 +21,7 @@ data class NewWorkerRequest(
     @ApiModelProperty(value = "Daily Income", position = 3, required = true)
     @field:NotNull
     @field:Positive
-    val dailyIncome: BigDecimal,
+    val dailyIncome: BigDecimal
 
 ) {
 
