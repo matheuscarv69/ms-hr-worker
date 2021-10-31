@@ -2,6 +2,8 @@ package src.entities.worker.service
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import src.configs.exception.WorkerNotFoundException
 import src.entities.worker.model.Worker
@@ -22,6 +24,17 @@ class GetWorkerService(
         return repository.findById(workerId).orElseThrow {
             WorkerNotFoundException("This Worker ID: $workerId not found.")
         }
+    }
+
+    override fun getAllWorkersByDepartment(
+        active: Boolean,
+        department: String,
+        pageable: Pageable
+    ): Page<Worker> {
+        log.info("Getting all Workers by Department: $department")
+
+        return repository.findAllByActiveAndDepartment(active, department, pageable)
+
     }
 
 
