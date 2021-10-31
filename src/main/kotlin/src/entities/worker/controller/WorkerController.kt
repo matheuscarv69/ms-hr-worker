@@ -144,7 +144,7 @@ class WorkerController(
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{workerId}/enable")
-    fun enableUser(
+    fun enableWorker(
         @PathVariable workerId: Long,
     ): ResponseEntity<Void> {
         log.info("Receiving request for enable worker, ID: $workerId")
@@ -164,7 +164,7 @@ class WorkerController(
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PatchMapping("/{workerId}/disable")
-    fun disableUser(
+    fun disableWorker(
         @PathVariable workerId: Long,
     ): ResponseEntity<Void> {
         log.info("Receiving request for disable worker, ID: $workerId")
