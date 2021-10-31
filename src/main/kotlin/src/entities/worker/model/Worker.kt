@@ -24,12 +24,13 @@ class Worker(
     @field:NotNull
     @field:Min(0)
     @Column(name = "daily_income", nullable = false)
-    val dailyIncome: BigDecimal,
+    val dailyIncome: BigDecimal
 
+) {
     @field:NotNull
     @Column(nullable = false)
-    var active: Boolean
-) {
+    var active: Boolean = true
+        private set
 
     fun enableUser(): Boolean {
         this.active = true
