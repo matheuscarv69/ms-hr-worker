@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 import src.entities.worker.request.NewWorkerRequest
 import src.entities.worker.request.UpdateWorkerRequest
+import src.entities.worker.response.DetailWorkerResponse
+import src.entities.worker.usecase.GetWorkerUseCase
 import src.entities.worker.usecase.NewWorkerUseCase
 import src.entities.worker.usecase.UpdateWorkerUseCase
 import javax.validation.Valid
@@ -25,7 +27,10 @@ class WorkerController(
     private val newWorkerService: NewWorkerUseCase,
 
     @Autowired
-    private val updateWorkerService: UpdateWorkerUseCase
+    private val updateWorkerService: UpdateWorkerUseCase,
+
+    @Autowired
+    private val getWorkerService: GetWorkerUseCase
 ) {
 
     private val log = LoggerFactory.getLogger(this.javaClass)
@@ -75,5 +80,24 @@ class WorkerController(
         return ResponseEntity.noContent().build()
     }
 
+    @ApiOperation("Get Worker by ID")
+    @ApiResponses(
+        value = [
+            ApiResponse(code = 200, message = "Worker found successfully"),
+            ApiResponse(code = 404, message = "Worker Not Found"),
+            ApiResponse(code = 500, message = "Internal Server Error")
+        ]
+    )
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{workerId}")
+    fun getUserById(
+        @PathVariable workerId: Long,
+    ): ResponseEntity<DetailWorkerResponse> {
+        log.info("Receiving request for found worker, id: $workerId")
+
+        val workerResponse = DetailWorkerResponse(getWorkerService.getWorkerById(workerId))
+
+        return ResponseEntity.ok(workerResponse)
+    }
 
 }
