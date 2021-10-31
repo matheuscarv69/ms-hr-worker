@@ -23,18 +23,12 @@ data class NewWorkerRequest(
     @field:Positive
     val dailyIncome: BigDecimal,
 
-    @ApiModelProperty(value = "Active", position = 4, required = true)
-    @field:NotNull
-    val active: Boolean
-
-
 ) {
 
     fun toModel() = Worker(
         id = this.userId,
         department = this.department,
-        dailyIncome = this.dailyIncome,
-        active = this.active
+        dailyIncome = this.dailyIncome
     )
 
 }
