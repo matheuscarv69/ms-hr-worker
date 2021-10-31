@@ -134,4 +134,44 @@ class WorkerController(
         return ResponseEntity.ok(workersPage)
     }
 
+    @ApiOperation("Enable Worker")
+    @ApiResponses(
+        value = [
+            ApiResponse(code = 204, message = "Worker Enable successfully"),
+            ApiResponse(code = 404, message = "Worker Not Found"),
+            ApiResponse(code = 500, message = "Internal Server Error")
+        ]
+    )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{workerId}/enable")
+    fun enableUser(
+        @PathVariable workerId: Long,
+    ): ResponseEntity<Void> {
+        log.info("Receiving request for enable worker, ID: $workerId")
+
+        updateWorkerService.enableWorker(workerId)
+
+        return ResponseEntity.noContent().build()
+    }
+
+    @ApiOperation("Disable Worker")
+    @ApiResponses(
+        value = [
+            ApiResponse(code = 204, message = "Worker Disable successfully"),
+            ApiResponse(code = 404, message = "Worker Not Found"),
+            ApiResponse(code = 500, message = "Internal Server Error")
+        ]
+    )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{workerId}/disable")
+    fun disableUser(
+        @PathVariable workerId: Long,
+    ): ResponseEntity<Void> {
+        log.info("Receiving request for disable worker, ID: $workerId")
+
+        updateWorkerService.disableWorker(workerId)
+
+        return ResponseEntity.noContent().build()
+    }
+
 }

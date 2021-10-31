@@ -32,12 +32,12 @@ class Worker(
     var active: Boolean = true
         private set
 
-    fun enableUser(): Boolean {
+    fun enableWorker(): Boolean {
         this.active = true
         return active
     }
 
-    fun disableUser(): Boolean {
+    fun disableWorker(): Boolean {
         this.active = false
         return active
     }
