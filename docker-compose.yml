@@ -9,6 +9,7 @@ services:
       context: .
     container_name: api-hr-worker
     environment:
+      SERVER_PORT: 9010
       POSTGRES_HOST: postgres_hr-worker:5432
       DB_USER: postgres
       DB_PASSWORD: password
