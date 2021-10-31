@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  # hr-worker TODO uncomment when this api is already
+  #  api-hr-worker:
+  #    build:
+  #      dockerfile: Dockerfile
+  #      context: .
+  #    container_name: api-hr-worker
+  #    environment:
+  #      POSTGRES_HOST: postgres_hr-worker:5432
+  #      DB_USER: postgres
+  #      DB_PASSWORD: password
+  #      DB_SCHEMA: hr_worker
+  #    ports:
+  #      - "9010:9010"
+  #    depends_on:
+  #      - postgres_hr-worker
+
+  # database
+  postgres_hr-worker:
+    image: 'postgres:alpine'
+    container_name: postgres_hr-worker
+    ports:
+      - "5440:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
