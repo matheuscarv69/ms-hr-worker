@@ -2,7 +2,6 @@ package src.entities.worker.request
 
 import io.swagger.annotations.ApiModelProperty
 import src.entities.worker.model.Worker
-import java.math.BigDecimal
 import javax.validation.constraints.*
 
 data class NewWorkerRequest(
@@ -18,17 +17,11 @@ data class NewWorkerRequest(
     @field:Size(max = 100)
     val department: String,
 
-    @ApiModelProperty(value = "Daily Income", position = 3, required = true)
-    @field:NotNull
-    @field:Positive
-    val dailyIncome: BigDecimal
-
-) {
+    ) {
 
     fun toModel() = Worker(
         id = this.userId,
         department = this.department,
-        dailyIncome = this.dailyIncome
     )
 
 }

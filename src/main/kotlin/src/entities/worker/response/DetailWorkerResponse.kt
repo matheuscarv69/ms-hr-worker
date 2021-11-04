@@ -12,17 +12,13 @@ class DetailWorkerResponse(
     @ApiModelProperty(value = "department", position = 2)
     val department: String,
 
-    @ApiModelProperty(value = "dailyIncome", position = 3)
-    val dailyIncome: BigDecimal,
-
-    @ApiModelProperty(value = "active", position = 4)
+    @ApiModelProperty(value = "active", position = 3)
     val active: Boolean
 ) {
 
     constructor(worker: Worker) : this(
         id = worker.id!!,
         department = worker.department,
-        dailyIncome = worker.dailyIncome,
         active = worker.active
     )
 
