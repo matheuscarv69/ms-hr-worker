@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  # hr-worker TODO uncomment when this api is already
+  # hr-worker
   api-hr-worker:
     build:
       dockerfile: Dockerfile

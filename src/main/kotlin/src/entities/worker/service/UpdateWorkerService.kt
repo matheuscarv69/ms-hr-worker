@@ -24,6 +24,8 @@ class UpdateWorkerService(
         repository.findById(workerDomain.id!!).orElseThrow {
             WorkerNotFoundException("This Worker ID: ${workerDomain.id} not found.")
         }.let { worker ->
+            worker.department = workerDomain.department
+
             repository.save(worker)
             log.info("Worker Updated, id: ${worker.id}")
         }

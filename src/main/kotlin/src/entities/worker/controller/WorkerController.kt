@@ -72,7 +72,7 @@ class WorkerController(
         ]
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PatchMapping("/{workerId}")
+    @PutMapping("/{workerId}")
     fun updateUser(
         @PathVariable workerId: Long,
         @RequestBody @Valid request: UpdateWorkerRequest,
